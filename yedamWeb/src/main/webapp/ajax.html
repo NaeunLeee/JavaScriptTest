@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>ajax.html</title>
+	<script src="js/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(onLoadFunc);
+		function onLoadFunc() {
+			$.ajax({
+				url: 'MOCK_DATA.json', //호출페이지
+				//data: '', //파라미터로 사용할 값
+				success: successCallBack,
+				error: errorCallBack
+			});
+		}
+		
+		function successCallBack(result) {
+			const ulTag = $('<ul />');
+			for (let i=0; i<result.length; i++) {
+				let liTag = $('<li />').attr('id', result[i].id).html('<strong>'+result[i].first_name+'-'+result[i].last_name+'</strong>');
+				ulTag.append(liTag);
+			}
+			$('#show').append(ulTag);
+		}
+		
+		function errorCallBack(reject) {
+			
+		}
+	</script>
+</head>
+<body>
+	<div id="show"></div>
+</body>
+</html>

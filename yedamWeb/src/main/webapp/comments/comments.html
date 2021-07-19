@@ -13,7 +13,7 @@
 		function loadCommentList() {
 			// ajax 호출, servlet 호출
 			let xhtp = new XMLHttpRequest();
-			xhtp.open('get', 'CommentServ?cmd=selectAll');
+			xhtp.open('get', '../CommentServ?cmd=selectAll');
 			xhtp.send();
 			xhtp.onreadystatechange = loadCommentResult;
 		}
@@ -68,7 +68,7 @@
 			let param = "&name=" + name + "&content=" + content;
 			// ajax 호출
 			let xhtp = new XMLHttpRequest();
-			xhtp.open('get', 'CommentServ?cmd=insert' + param);
+			xhtp.open('get', '../CommentServ?cmd=insert' + param);
 			xhtp.send();
 			xhtp.onreadystatechange = addResult;
 
@@ -116,7 +116,7 @@
 			const content = document.updateForm.content.value;
 			const param = '?cmd=update&id=' + id + '&name=' + name + '&content=' + content;
 			let xhtp = new XMLHttpRequest();
-			xhtp.open('get', 'CommentServ' + param);
+			xhtp.open('get', '../CommentServ' + param);
 			xhtp.send();
 			xhtp.onreadystatechange = updateResult;
 				
@@ -160,7 +160,7 @@
 		// 삭제
 		function confirmDeletion(id) {
 			const xhtp = new XMLHttpRequest();
-			xhtp.open('get', 'CommentServ?cmd=delete&id=' + id);
+			xhtp.open('get', '../CommentServ?cmd=delete&id=' + id);
 			xhtp.send();
 			xhtp.onreadystatechange = deleteResult;
 		}
