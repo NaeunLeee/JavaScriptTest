@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="members.json"></script>
+    <title>exam01</title>
+</head>
+
+<body>
+    <div id="show">
+
+    </div>
+    <script>
+        function loadJSON(callback) {
+            var xhtp = new XMLHttpRequest();
+            xhtp.overrideMimeType("application/json");
+            xhtp.open('GET', 'members.json', true);
+            xhtp.onreadystatechange = function () {
+                if (xhtp.readyState == 4 && xhtp.status == "200") {
+                    callback(JSON.parse(xhtp.responseText));
+                }
+            };
+            xhtp.send(null);
+        }
+
+        loadJSON(function (json) {
+            let table = document.createElement('table');
+			table.setAttribute('border', '1');
+			table.setAttribute('cellpadding', '10');
+			table.setAttribute('rules', 'all');
+
+            showTitle(); 
+
+            for (let obj of json) { 
+                let tr = document.createElement('tr');
+                tr.setAttribute('id', obj.id); 
+
+                for (let field in obj) {
+                    let td = document.createElement('td');
+                    let text = document.createTextNode(obj[field]);
+                    td.appendChild(text);
+                    tr.appendChild(td);
+                }
+                
+                table.appendChild(tr);
+            }
+            document.getElementById('show').appendChild(table);
+
+            function showTitle() {
+                let titles = ['id', 'first_name', 'last_name', 'email', 'gener', 'address'];
+                let tr = document.createElement('tr');
+                for (let field of titles) { 
+                    let td = document.createElement('th');
+                    td.setAttribute('bgcolor', 'lightblue');
+                    let text = document.createTextNode(field);
+                    td.appendChild(text);
+                    tr.appendChild(td);
+                }
+                table.appendChild(tr);
+            }
+
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>exam02.html</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(onLoadFunc);
+
+        function onLoadFunc() {
+            $.ajax({
+                url: 'employees.xml',
+                success: successCallBack,
+                error: errorCallBack
+            });
+        }
+
+        function successCallBack(result) {
+            console.log(result);
+            const ulTag = $('<ul />');
+            for (let i=0; i<result.length; i++) {
+                let liTag = $('<li />');
+                liTag.append(result.getElementsByTagName('emp_id')[0].innerHTML);
+                liTag.append(result.getElementsByTagName('first_name')[0].innerHTML);
+                liTag.append(result.getElementsByTagName('phone_number')[0].innerHTML);
+                ulTag.append(liTag);
+            }
+            $('#show').append(ulTag);
+        }
+        
+        function errorCallBack(reject) {
+            console.log('에러 발생');
+        }
+    </script>
+</head>
+
+<body>
+    <div id="show"></div>
+</body>
+
+</html>
